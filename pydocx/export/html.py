@@ -737,7 +737,9 @@ class PyDocXHTMLExporter(PyDocXExporter):
                 attrs['height'] = height
             if rotate:
                 attrs['style'] = 'transform: rotate(%sdeg);' % rotate
-
+            if not uri_is_external(image.uri):
+                _, filename = posixpath.split(image.uri)
+                attrs['data-filename'] = filename
             return HtmlTag(
                 'img',
                 allow_self_closing=True,
